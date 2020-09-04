@@ -3,10 +3,8 @@ import java.util.Objects;
 
 class Angle extends MathOperations implements TrigonometricCases {
 
-    //parametr wymagany
     private double degree;
 
-    //parametry opcjonalne
     private int minutes;
     private int seconds;
 
@@ -55,11 +53,6 @@ class Angle extends MathOperations implements TrigonometricCases {
         return degree >= Types.MIN_DEGREE.value && degree <= Types.MAX_DEGREE.value
                 && minutes >= Types.MIN_DEGREE.value && minutes <= Types.MAX_MIN_SEC_VALUE.value
                 && seconds >= Types.MIN_DEGREE.value && seconds <= Types.MAX_MIN_SEC_VALUE.value;
-    }
-
-    private boolean checkValues(double degree, int minutes) {
-        return degree >= Types.MIN_DEGREE.value && degree <= Types.MAX_DEGREE.value
-                && minutes >= Types.MIN_DEGREE.value && minutes <= Types.MAX_MIN_SEC_VALUE.value;
     }
 
     private boolean checkValues(double degree) {
@@ -140,6 +133,7 @@ class Angle extends MathOperations implements TrigonometricCases {
     public int hashCode() {
         return Objects.hash(getDegree(), getMinutes(), getSeconds());
     }
+
 
     static class AngleBuilder {
         private double degree;
