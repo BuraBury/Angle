@@ -1,49 +1,49 @@
 abstract class MathOperations {
 
     static Angle add(Angle a1, Angle a2) {
-        Angle result = new Angle();
+        Angle result = new Angle.AngleBuilder(0).build();
         result.setDegree(a1.getDegree() + a2.getDegree());
         return result;
     }
 
     static Angle diff(Angle a1, Angle a2) {
-        Angle result = new Angle();
+        Angle result = new Angle.AngleBuilder(0).build();
         result.setDegree(a1.getDegree() - a2.getDegree());
         return result;
     }
 
     static Angle mult(Angle a1, Angle a2) {
-        Angle result = new Angle();
+        Angle result = new Angle.AngleBuilder(0).build();
         result.setDegree(a1.getDegree() * a2.getDegree());
         return result;
     }
 
     static Angle div(Angle a1, Angle a2) {
-        Angle result = new Angle();
+        Angle result = new Angle.AngleBuilder(0).build();
         result.setDegree(a1.getDegree() / a2.getDegree());
         return result;
     }
 
     static Angle prod(Angle angle, int x) {
-        Angle result = new Angle();
+        Angle result = new Angle.AngleBuilder(0).build();
         result.setDegree(angle.getDegree() * x);
         return result;
     }
 
     static Angle quot(Angle angle, int x) {
-        Angle result = new Angle();
+        Angle result = new Angle.AngleBuilder(0).build();
         result.setDegree(angle.getDegree() / x);
         return result;
     }
 
     static Angle compl(Angle angle) {
-        Angle result = new Angle();
+        Angle result = new Angle.AngleBuilder(0).build();
         result.setDegree(Types.STRAIGHT_ANGLE.value - angle.getDegree());
         return result;
     }
 
     static Angle suppl(Angle angle) {
-        Angle result = new Angle();
+        Angle result = new Angle.AngleBuilder(0).build();
         result.setDegree(Types.HALF_ANGLE.value - angle.getDegree());
         return result;
     }
@@ -69,8 +69,8 @@ abstract class MathOperations {
     }
 
     static String getAngles_isoscelesTriangle(double basis, double side) {
-        Angle angle = new Angle();
-        Angle angle2 = new Angle();
+        Angle angle = new Angle.AngleBuilder(0).build();
+        Angle angle2 = new Angle.AngleBuilder(0).build();
         angle.setOfSin(Math.sin(basis / side));
         angle2.setDegree((Types.SUM_TRIANGLE_ANGLES.value - angle.getDegree()) / 2.0);
 
