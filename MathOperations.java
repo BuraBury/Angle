@@ -58,8 +58,27 @@ abstract class MathOperations {
 
     static Angle suppl(Angle angle) {
         Angle result = new Angle();
+
         result.setDegree(Types.HALF_ANGLE.value - angle.getDegree());
         return result;
+    }
+
+    static double countAngleAtBase(Angle angle) {
+        double result = (180.0 - angle.getDegree()) / 2.0;
+        if (result > 0) {
+            return result;
+        } else {
+            return 0.0;
+        }
+    }
+
+    static double countAngleAtTop(Angle angle) {
+        double result = 180.0 - (angle.getDegree() * 2);
+        if (result > 0) {
+            return result;
+        } else {
+            return 0.0;
+        }
     }
 
 

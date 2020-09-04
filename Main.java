@@ -96,8 +96,11 @@ public class Main {
         Angle supplAngle = MathOperations.suppl(angle1);
         System.out.println("kąt przyległy do kąta " + angle1.getDegree() + " = " + supplAngle.toString());
 
-        Angle angle = new Angle(60);
+        Angle angle = new Angle(90);
         System.out.println(TrygonometryCases.sin(angle));
+
+        System.out.println(MathOperations.countAngleAtBase(angle));
+        System.out.println(MathOperations.countAngleAtTop(angle));
 
     }
 
