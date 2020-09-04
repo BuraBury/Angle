@@ -1,51 +1,62 @@
 import java.lang.*;
 import java.util.Objects;
 
-class Angle extends MathOperations implements TrygonometryCases {
-
-    private final double MAX_DEGREE = Types.FULL_ANGLE.value;
-    private final int MAX_MIN_SEC_VALUE = 60 * Types.ARCMINUTE.value;
-    private final int MIN_DEGREE = 0;
+class Angle extends MathOperations implements TrigonometricCases {
 
     private double degree;
     private int minutes;
     private int seconds;
 
     public Angle() {
-        this.degree = MIN_DEGREE;
+        this.degree = Types.MIN_DEGREE.value;
     }
 
     public Angle(double degree) {
-        if (degree >= MIN_DEGREE && degree <= MAX_DEGREE) {
+        if (checkValues(degree)) {
             this.degree = degree;
         } else {
-            this.degree = MIN_DEGREE;
+            setAllDefault();
         }
     }
 
     public Angle(double degree, int minutes) {
-        if (degree >= MIN_DEGREE && degree <= MAX_DEGREE
-                && minutes >= MIN_DEGREE && minutes <= MAX_MIN_SEC_VALUE) {
+        if (checkValues(degree, minutes)) {
             this.degree = degree;
             this.minutes = minutes;
         } else {
-            this.degree = MIN_DEGREE;
-            this.minutes = MIN_DEGREE;
+            setAllDefault();
         }
     }
 
     public Angle(double degree, int minutes, int seconds) {
-        if (degree >= MIN_DEGREE && degree <= MAX_DEGREE
-                && minutes >= MIN_DEGREE && minutes <= MAX_MIN_SEC_VALUE
-                && seconds >= MIN_DEGREE && seconds <= MAX_MIN_SEC_VALUE) {
+        if (checkValues(degree, minutes, seconds)) {
             this.degree = degree;
             this.minutes = minutes;
             this.seconds = seconds;
         } else {
-            this.degree = MIN_DEGREE;
-            this.minutes = MIN_DEGREE;
-            this.seconds = MIN_DEGREE;
+            setAllDefault();
         }
+    }
+
+    private boolean checkValues(double degree, int minutes, int seconds) {
+        return degree >= Types.MIN_DEGREE.value && degree <= Types.MAX_DEGREE.value
+                && minutes >= Types.MIN_DEGREE.value && minutes <= Types.MAX_MIN_SEC_VALUE.value
+                && seconds >= Types.MIN_DEGREE.value && seconds <= Types.MAX_MIN_SEC_VALUE.value;
+    }
+
+    private boolean checkValues(double degree, int minutes) {
+        return degree >= Types.MIN_DEGREE.value && degree <= Types.MAX_DEGREE.value
+                && minutes >= Types.MIN_DEGREE.value && minutes <= Types.MAX_MIN_SEC_VALUE.value;
+    }
+
+    private boolean checkValues(double degree) {
+        return degree >= Types.MIN_DEGREE.value && degree <= Types.MAX_DEGREE.value;
+    }
+
+    private void setAllDefault() {
+        this.degree = Types.MIN_DEGREE.value;
+        this.minutes = Types.MIN_DEGREE.value;
+        this.seconds = Types.MIN_DEGREE.value;
     }
 
     public Angle(String input) {
@@ -54,9 +65,17 @@ class Angle extends MathOperations implements TrygonometryCases {
         input = input.replace("\"", " ");
 
         String[] a = input.split(" ");
-        this.degree = Integer.parseInt(a[0]);
-        this.minutes = Integer.parseInt(a[1]);
-        this.seconds = Integer.parseInt(a[2]);
+        double degree = Integer.parseInt(a[0]);
+        int minutes = Integer.parseInt(a[1]);
+        int seconds = Integer.parseInt(a[2]);
+
+        if (checkValues(degree, minutes, seconds)) {
+            this.degree = degree;
+            this.minutes = minutes;
+            this.seconds = seconds;
+        } else {
+            setAllDefault();
+        }
     }
 
     public Angle(Point point) {
@@ -68,7 +87,11 @@ class Angle extends MathOperations implements TrygonometryCases {
     }
 
     public void setDegree(double degree) {
-        this.degree = degree;
+        if (checkValues(degree)) {
+            this.degree = degree;
+        } else {
+            setAllDefault();
+        }
     }
 
     public int getMinutes() {
@@ -104,7 +127,9 @@ class Angle extends MathOperations implements TrygonometryCases {
         this.degree = Math.toDegrees(Math.atan2(point.getY(), point.getX()));
     }
 
-    static Angle valueOf(double degree) { return new Angle(degree); }
+    static Angle valueOf(double degree) {
+        return new Angle(degree);
+    }
 
     static Angle valueOf(double degree, int minutes) {
         return new Angle(degree, minutes);

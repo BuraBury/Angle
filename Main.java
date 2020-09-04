@@ -11,12 +11,12 @@ public class Main {
         System.out.println();
         System.out.println("Wartości funkcji trygonometrycznych dla kąta 45");
         System.out.println(
-                        "cos = " + TrygonometryCases.cos(angle1) + "\n" +
-                        "sin = " + TrygonometryCases.sin(angle1) + "\n" +
-                        "tan = " + TrygonometryCases.tan(angle1) + "\n" +
-                        "cotan = " + TrygonometryCases.cotan(angle1) + "\n" +
-                        "secans = " + TrygonometryCases.secans(angle1) + "\n" +
-                        "cosecans = " + TrygonometryCases.cosecans(angle1));
+                "cos = " + TrigonometricCases.cos(angle1) + "\n" +
+                        "sin = " + TrigonometricCases.sin(angle1) + "\n" +
+                        "tan = " + TrigonometricCases.tan(angle1) + "\n" +
+                        "cotan = " + TrigonometricCases.cotan(angle1) + "\n" +
+                        "secans = " + TrigonometricCases.secans(angle1) + "\n" +
+                        "cosecans = " + TrigonometricCases.cosecans(angle1));
         System.out.println();
 
         Angle angle4 = new Angle("105°30'15");
@@ -83,7 +83,7 @@ public class Main {
         System.out.println("miara kąta na podstawie " + angle1.getDegree() + " / " + 1 + " = " + on.toString());
         System.out.println();
 
-        Angle right_angle = new Angle(Types.RIGHT_ANGLE.value);
+        Angle right_angle = new Angle(Types.STRAIGHT_ANGLE.value);
         Angle full_angle = new Angle(Types.FULL_ANGLE.value);
         System.out.println("miara kąta prostego = " + right_angle.toString());
         System.out.println("miara kąta pełnego = " + full_angle.toString());
@@ -96,11 +96,27 @@ public class Main {
         Angle supplAngle = MathOperations.suppl(angle1);
         System.out.println("kąt przyległy do kąta " + angle1.getDegree() + " = " + supplAngle.toString());
 
-        Angle angle = new Angle(90);
-        System.out.println(TrygonometryCases.sin(angle));
+        Angle angle = new Angle(20);
+        System.out.println(TrigonometricCases.sin(angle));
 
-        System.out.println(MathOperations.countAngleAtBase(angle));
-        System.out.println(MathOperations.countAngleAtTop(angle));
+        System.out.println(MathOperations.getBaseAngle(angle));
+        System.out.println(MathOperations.getTopAngle(angle));
+
+        angle.setOfSin(0.3827);
+        System.out.println(angle.getDegree());
+
+        System.out.println(MathOperations.getAngles_isoscelesTriangle(14, 8));
+        System.out.println(79.73238585210595 + 50.133807073947025 + 50.133807073947025);
+
+        Angle wrongOne = new Angle(1400);
+        System.out.println(wrongOne.toString());
+
+        Angle wrongTwo = new Angle("100005°30'15");
+        System.out.println(wrongTwo.toString());
+
+
+
+
 
     }
 
