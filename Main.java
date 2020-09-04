@@ -1,9 +1,15 @@
 public class Main {
     public static void main(String[] args) {
 
-        Angle angle1 = new Angle(45);
-        Angle angle2 = new Angle(56, 5);
-        Angle angle3 = new Angle(4, 5, 1);
+        Angle angle1 = new Angle.AngleBuilder(45)
+                .build();
+        Angle angle2 = new Angle.AngleBuilder(56)
+                .setMinutes(6)
+                .build();
+        Angle angle3 = new Angle.AngleBuilder(4)
+                .setMinutes(10)
+                .setSeconds(24)
+                .build();
 
         System.out.println("Metoda toString dla kąta 45: " + angle1.toString());
         System.out.println(angle1.getDegree() + " degrees");
@@ -40,7 +46,8 @@ public class Main {
         System.out.println("kąt między osią OX, a punktem (1, 2) = " + angle5.toString());
         System.out.println();
 
-        Angle angle6 = new Angle();
+        Angle angle6 = new Angle.AngleBuilder(45)
+                .build();
         angle6.setOfPoint(3, 0);
         System.out.println("kąt między osią OX, a pkt (3, 0) = " + angle6.toString());
 
@@ -55,7 +62,6 @@ public class Main {
 
         try {
             Angle c = MathOperations.mult(angle1, angle3);
-            assert c != null;
             System.out.println("iloczyn kątów " + angle1.getDegree() + " i " + angle3.getDegree() + " = " + c.toString());
         } catch (NullPointerException e) {
             System.out.println("Angle bigger than 360 or smaller than 0 degrees");
@@ -63,14 +69,13 @@ public class Main {
 
         try {
             Angle d = MathOperations.div(angle1, angle3);
-            assert d != null;
             System.out.println("iloraz kątów " + angle1.getDegree() + " i " + angle3.getDegree() + " = " + d.toString());
         } catch (NullPointerException e) {
             System.out.println("Angle bigger than 360 or smaller than 0 degrees");
         }
 
         System.out.println("Czy angle1(45) == angle2(56)? " + angle1.equals(angle2));
-        Angle zet = new Angle(45);
+        Angle zet = new Angle.AngleBuilder(45).build();
         System.out.println("Czy angle1(45) == angle zet(45)? " + angle1.equals(zet));
 
         System.out.println("Iloraz " + angle1.getDegree() + " i " + zet.getDegree() + " = " + MathOperations.div(angle1, zet));
@@ -83,8 +88,10 @@ public class Main {
         System.out.println("miara kąta na podstawie " + angle1.getDegree() + " / " + 1 + " = " + on.toString());
         System.out.println();
 
-        Angle right_angle = new Angle(Types.STRAIGHT_ANGLE.value);
-        Angle full_angle = new Angle(Types.FULL_ANGLE.value);
+        Angle right_angle = new Angle.AngleBuilder(Types.STRAIGHT_ANGLE.value)
+                .build();
+        Angle full_angle = new Angle.AngleBuilder(Types.FULL_ANGLE.value)
+                .build();
         System.out.println("miara kąta prostego = " + right_angle.toString());
         System.out.println("miara kąta pełnego = " + full_angle.toString());
         System.out.println();
@@ -96,7 +103,8 @@ public class Main {
         Angle supplAngle = MathOperations.suppl(angle1);
         System.out.println("kąt przyległy do kąta " + angle1.getDegree() + " = " + supplAngle.toString());
 
-        Angle angle = new Angle(20);
+        Angle angle = new Angle.AngleBuilder(20)
+                .build();
         System.out.println(TrigonometricCases.sin(angle));
 
         System.out.println(MathOperations.getBaseAngle(angle));
@@ -108,14 +116,19 @@ public class Main {
         System.out.println(MathOperations.getAngles_isoscelesTriangle(14, 8));
         System.out.println(79.73238585210595 + 50.133807073947025 + 50.133807073947025);
 
-        Angle wrongOne = new Angle(1400);
+        Angle wrongOne = new Angle.AngleBuilder(1400)
+                .build();
         System.out.println(wrongOne.toString());
 
         Angle wrongTwo = new Angle("100005°30'15");
         System.out.println(wrongTwo.toString());
 
+        Angle angleBuilder = new Angle.AngleBuilder(34.9)
+                .setMinutes(3)
+                .setSeconds(45)
+                .build();
 
-
+        System.out.println(angleBuilder.toString());
 
 
     }

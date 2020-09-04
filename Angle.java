@@ -3,36 +3,49 @@ import java.util.Objects;
 
 class Angle extends MathOperations implements TrigonometricCases {
 
+    //parametr wymagany
     private double degree;
+
+    //parametry opcjonalne
     private int minutes;
     private int seconds;
 
-    public Angle() {
-        this.degree = Types.MIN_DEGREE.value;
+    private Angle(AngleBuilder builder) {
+        this.degree = builder.degree;
+        this.minutes = builder.minutes;
+        this.seconds = builder.seconds;
     }
 
-    public Angle(double degree) {
-        if (checkValues(degree)) {
-            this.degree = degree;
-        } else {
-            setAllDefault();
-        }
-    }
+    public Angle(String input) {
+        input = input.replace("°", " ");
+        input = input.replace("'", " ");
+        input = input.replace("\"", " ");
 
-    public Angle(double degree, int minutes) {
-        if (checkValues(degree, minutes)) {
-            this.degree = degree;
-            this.minutes = minutes;
-        } else {
-            setAllDefault();
-        }
-    }
+        String[] a = input.split(" ");
+        double degree = Integer.parseInt(a[0]);
+        int minutes = Integer.parseInt(a[1]);
+        int seconds = Integer.parseInt(a[2]);
 
-    public Angle(double degree, int minutes, int seconds) {
         if (checkValues(degree, minutes, seconds)) {
             this.degree = degree;
             this.minutes = minutes;
             this.seconds = seconds;
+        } else {
+            setAllDefault();
+        }
+    }
+
+    public Angle(Point point) {
+        this.degree = Math.toDegrees(Math.atan2(point.getX(), point.getY()));
+    }
+
+    double getDegree() {
+        return degree;
+    }
+
+    void setDegree(double degree) {
+        if (checkValues(degree)) {
+            this.degree = degree;
         } else {
             setAllDefault();
         }
@@ -59,50 +72,15 @@ class Angle extends MathOperations implements TrigonometricCases {
         this.seconds = Types.MIN_DEGREE.value;
     }
 
-    public Angle(String input) {
-        input = input.replace("°", " ");
-        input = input.replace("'", " ");
-        input = input.replace("\"", " ");
-
-        String[] a = input.split(" ");
-        double degree = Integer.parseInt(a[0]);
-        int minutes = Integer.parseInt(a[1]);
-        int seconds = Integer.parseInt(a[2]);
-
-        if (checkValues(degree, minutes, seconds)) {
-            this.degree = degree;
-            this.minutes = minutes;
-            this.seconds = seconds;
-        } else {
-            setAllDefault();
-        }
-    }
-
-    public Angle(Point point) {
-        this.degree = Math.toDegrees(Math.atan2(point.getX(), point.getY()));
-    }
-
-    public double getDegree() {
-        return degree;
-    }
-
-    public void setDegree(double degree) {
-        if (checkValues(degree)) {
-            this.degree = degree;
-        } else {
-            setAllDefault();
-        }
-    }
-
-    public int getMinutes() {
+    int getMinutes() {
         return minutes;
     }
 
-    public int getSeconds() {
+    int getSeconds() {
         return seconds;
     }
 
-    public double getRadian() {
+    double getRadian() {
         return Math.toRadians(degree);
     }
 
@@ -128,15 +106,15 @@ class Angle extends MathOperations implements TrigonometricCases {
     }
 
     static Angle valueOf(double degree) {
-        return new Angle(degree);
+        return new Angle.AngleBuilder(degree).build();
     }
 
     static Angle valueOf(double degree, int minutes) {
-        return new Angle(degree, minutes);
+        return new Angle.AngleBuilder(degree).setMinutes(minutes).build();
     }
 
     static Angle valueOf(double degree, int minutes, int seconds) {
-        return new Angle(degree, minutes, seconds);
+        return new Angle.AngleBuilder(degree).setMinutes(minutes).setSeconds(seconds).build();
     }
 
     static Angle valueOf(String input) {
@@ -162,4 +140,56 @@ class Angle extends MathOperations implements TrigonometricCases {
     public int hashCode() {
         return Objects.hash(getDegree(), getMinutes(), getSeconds());
     }
+
+    static class AngleBuilder {
+        private double degree;
+        private int minutes;
+        private int seconds;
+
+        public AngleBuilder(double degree) {
+            if (checkValues(degree)) {
+                this.degree = degree;
+            } else {
+                setAllDefault();
+            }
+        }
+
+        public AngleBuilder setMinutes(int minutes) {
+            if (checkValues(minutes)) {
+                this.minutes = minutes;
+            } else {
+                setAllDefault();
+            }
+            return this;
+        }
+
+        public AngleBuilder setSeconds(int seconds) {
+            if (checkValues(seconds)) {
+                this.seconds = seconds;
+            } else {
+                setAllDefault();
+            }
+            return this;
+        }
+
+        public Angle build() {
+            return new Angle(this);
+        }
+
+        private boolean checkValues(int value) {
+            return value >= Types.MIN_DEGREE.value && value <= Types.MAX_MIN_SEC_VALUE.value;
+        }
+
+        private boolean checkValues(double degree) {
+            return degree >= Types.MIN_DEGREE.value && degree <= Types.MAX_DEGREE.value;
+        }
+
+        private void setAllDefault() {
+            this.degree = Types.MIN_DEGREE.value;
+            this.minutes = Types.MIN_DEGREE.value;
+            this.seconds = Types.MIN_DEGREE.value;
+        }
+    }
 }
+
+
