@@ -185,5 +185,3 @@ class Angle extends MathOperations implements TrigonometricCases {
         }
     }
 }
-
-
