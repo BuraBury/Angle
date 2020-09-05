@@ -63,19 +63,12 @@ public class Main {
         Angle b = MathOperations.diff(angle1, angle1);
         System.out.println("różnica kątów " + angle1.getDegree() + " i " + angle1.getDegree() + " = " + b.toString());
 
-        try {
-            Angle c = MathOperations.mult(angle1, angle3);
-            System.out.println("iloczyn kątów " + angle1.getDegree() + " i " + angle3.getDegree() + " = " + c.toString());
-        } catch (NullPointerException e) {
-            System.out.println("Angle is smaller than 0 degrees");
-        }
+        Angle c = MathOperations.mult(angle1, angle3);
+        System.out.println("iloczyn kątów " + angle1.getDegree() + " i " + angle3.getDegree() + " = " + c.toString());
 
-        try {
-            Angle d = MathOperations.div(angle1, angle3);
-            System.out.println("iloraz kątów " + angle1.getDegree() + " i " + angle3.getDegree() + " = " + d.toString());
-        } catch (NullPointerException e) {
-            System.out.println("Angle is smaller than 0 degrees");
-        }
+
+        Angle d = MathOperations.div(angle1, angle3);
+        System.out.println("iloraz kątów " + angle1.getDegree() + " i " + angle3.getDegree() + " = " + d.toString());
 
         System.out.println("Czy angle1(45) == angle2(56)? " + angle1.equals(angle2));
         Angle zet = new Angle.AngleBuilder(45).build();
