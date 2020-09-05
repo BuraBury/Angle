@@ -46,17 +46,20 @@ public class Main {
         System.out.println("kąt między osią OX, a punktem (1, 2) = " + angle5.toString());
         System.out.println();
 
-        Angle angle6 = new Angle.AngleBuilder(45)
+        Angle angle6 = new Angle.AngleBuilder(0)
                 .build();
         angle6.setOfPoint(3, 0);
         System.out.println("kąt między osią OX, a pkt (3, 0) = " + angle6.toString());
+        System.out.println();
 
         Angle angle7 = Angle.valueOf("100°20'5");
         System.out.println("obiek Angle utworzony za pomocą konstruktora z parametrem typu String = " + angle7.toString());
 
         System.out.println();
+
         Angle a = MathOperations.add(angle1, angle1);
         System.out.println("suma kątów " + angle1.getDegree() + " i " + angle1.getDegree() + " = " + a.toString());
+
         Angle b = MathOperations.diff(angle1, angle1);
         System.out.println("różnica kątów " + angle1.getDegree() + " i " + angle1.getDegree() + " = " + b.toString());
 
@@ -64,14 +67,14 @@ public class Main {
             Angle c = MathOperations.mult(angle1, angle3);
             System.out.println("iloczyn kątów " + angle1.getDegree() + " i " + angle3.getDegree() + " = " + c.toString());
         } catch (NullPointerException e) {
-            System.out.println("Angle bigger than 360 or smaller than 0 degrees");
+            System.out.println("Angle is smaller than 0 degrees");
         }
 
         try {
             Angle d = MathOperations.div(angle1, angle3);
             System.out.println("iloraz kątów " + angle1.getDegree() + " i " + angle3.getDegree() + " = " + d.toString());
         } catch (NullPointerException e) {
-            System.out.println("Angle bigger than 360 or smaller than 0 degrees");
+            System.out.println("Angle is smaller than 0 degrees");
         }
 
         System.out.println("Czy angle1(45) == angle2(56)? " + angle1.equals(angle2));
